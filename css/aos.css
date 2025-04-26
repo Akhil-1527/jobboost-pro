@@ -1,0 +1,60 @@
+/**
+ * Custom animate-on-scroll (AOS) implementation
+ * A lightweight library for handling scroll animations
+ */
+
+ [data-aos] {
+    opacity: 0;
+    transition: opacity 0.8s, transform 0.8s;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translateZ(0);
+}
+
+/* Fade animations */
+[data-aos="fade-up"] {
+    transform: translate3d(0, 30px, 0);
+}
+
+[data-aos="fade-down"] {
+    transform: translate3d(0, -30px, 0);
+}
+
+[data-aos="fade-left"] {
+    transform: translate3d(-30px, 0, 0);
+}
+
+[data-aos="fade-right"] {
+    transform: translate3d(30px, 0, 0);
+}
+
+/* Scale animations */
+[data-aos="zoom-in"] {
+    transform: scale(0.9);
+}
+
+/* Different delays for animations */
+[data-aos][data-aos-delay="100"] {
+    transition-delay: 0.1s;
+}
+
+[data-aos][data-aos-delay="200"] {
+    transition-delay: 0.2s;
+}
+
+[data-aos][data-aos-delay="300"] {
+    transition-delay: 0.3s;
+}
+
+[data-aos][data-aos-delay="400"] {
+    transition-delay: 0.4s;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    [data-aos] {
+        transition: opacity 0.6s, transform 0.6s; 
+    }
+}
