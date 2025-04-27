@@ -22,7 +22,8 @@ jobs:
 
     - name: Sync website to S3
       run: |
-        aws s3 sync ./ s3://jobboost-pro-site/ --delete --acl public-read --exclude ".git/*" --exclude ".github/*" --exclude "README.md" --exclude "LICENSE"
+        aws s3 sync ./ s3://jobboost-pro-site/ --delete --exclude ".git/*" --exclude ".github/*" --exclude "README.md"
+
 
     # (Optional) CloudFront Cache Invalidation
     # Uncomment below lines if you are using CloudFront for CDN
