@@ -1,7 +1,7 @@
 /**
  * JobBoost Pro - Main JavaScript File
  * 
- * This file contains all the interactive functionality of the JobBoost Pro website
+ * This file contains all the interactive functionality of the Flex Apply website
  * Includes mobile menu toggle, smooth scrolling, form validation, testimonial slider
  * and scroll animations
  */
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevButton = document.querySelector('.testimonials__nav-btn--prev');
     const nextButton = document.querySelector('.testimonials__nav-btn--next');
     const contactForm = document.querySelector('#contactForm');
+    const formSuccess = document.querySelector('#form-success');
     
     // Initialize current slide index
     let currentSlide = 0;
@@ -36,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (menuToggle) {
         menuToggle.addEventListener('click', function() {
             this.classList.toggle('active');
-            navLinks.classList.toggle('active');
             navLinks.classList.toggle('active');
             
             // Transform hamburger to X
@@ -158,11 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form validation and submission
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
             // Get form fields
             const nameField = document.getElementById('name');
             const emailField = document.getElementById('email');
+            const phoneField = document.getElementById('phone');
             const workAuthField = document.getElementById('workAuth');
-            const challengeField = document.getElementById('challenge');
             
             // Basic validation
             let valid = true;
@@ -181,6 +183,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 emailField.style.borderColor = 'var(--border-medium)';
             }
             
+            if (!phoneField.value.trim()) {
+                valid = false;
+                phoneField.style.borderColor = 'var(--error)';
+            } else {
+                phoneField.style.borderColor = 'var(--border-medium)';
+            }
+            
             if (workAuthField.value === '') {
                 valid = false;
                 workAuthField.style.borderColor = 'var(--error)';
@@ -188,17 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 workAuthField.style.borderColor = 'var(--border-medium)';
             }
             
-            if (!challengeField.value.trim()) {
-                valid = false;
-                challengeField.style.borderColor = 'var(--error)';
-            } else {
-                challengeField.style.borderColor = 'var(--border-medium)';
-            }
-            
             // If form is not valid, prevent submission
             if (!valid) {
-                e.preventDefault();
-                
                 // Show error message
                 const formError = document.createElement('div');
                 formError.className = 'form-error';
@@ -216,15 +216,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Formspree.io handles the actual submission
-            // This is just for user feedback
-            const formButton = contactForm.querySelector('button[type="submit"]');
-            formButton.innerHTML = 'Sending...';
-            formButton.disabled = true;
+            // Submit the form using Fetch API instead of default behavior
+            const formData = new FormData(contactForm);
             
-            // Success message can be added when Formspree redirects back or
-            // when using AJAX with Formspree's JSON API
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                // Show success message
+                showFormSuccess();
+                
+                // Clear form fields
+                contactForm.reset();
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                // Show a user-friendly error
+                const formError = document.createElement('div');
+                formError.className = 'form-error';
+                formError.innerHTML = 'There was an error submitting the form. Please try again.';
+                
+                // Remove any existing error messages
+                const existingError = contactForm.querySelector('.form-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                // Add error message to form
+                contactForm.insertBefore(formError, contactForm.firstChild);
+            });
         });
+    }
+    
+    // Show form success message
+    function showFormSuccess() {
+        if (formSuccess) {
+            formSuccess.style.display = 'block';
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                formSuccess.style.display = 'none';
+            }, 5000);
+        }
     }
     
     // Email validation helper
@@ -256,4 +293,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-}); 
+});

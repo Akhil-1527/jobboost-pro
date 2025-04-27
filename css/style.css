@@ -1238,3 +1238,93 @@ select {
         padding: var(--spacing-lg);
     }
 }
+
+/* Added styles for the Who We Help section to make cards appear in a single horizontal line */
+.who-we-help__grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--spacing-md);
+    overflow-x: auto;
+    padding: var(--spacing-md) 0;
+    scroll-snap-type: x mandatory;
+    margin-bottom: var(--spacing-lg);
+}
+
+.who-we-help__grid .audience-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form success notification styling */
+.form-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border-left: 3px solid var(--success);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--radius-md);
+}
+
+.form-success p {
+    color: var(--success);
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Improve spacing in contact calendar section */
+.contact__calendar {
+    background-color: var(--primary-dark);
+    color: var(--text-white);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    margin-top: auto;
+}
+
+.contact__calendar h3 {
+    color: var(--text-white);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Responsive adjustments for horizontal cards in Who We Help section */
+@media (max-width: 1200px) {
+    .who-we-help__grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: var(--spacing-sm);
+        gap: var(--spacing-sm);
+    }
+    
+    .who-we-help__grid .audience-card {
+        flex: 0 0 260px;
+    }
+}
+@media (max-width: 768px) {
+    .who-we-help__grid {
+        flex-wrap: nowrap;
+        padding-bottom: var(--spacing-sm);
+    }
+    
+    .who-we-help__grid .audience-card {
+        flex: 0 0 85%;
+    }
+    
+    .contact__calendar {
+        padding: var(--spacing-lg);
+    }
+    
+    .contact__calendar h3 {
+        margin-bottom: var(--spacing-md);
+    }
+}
+
+@media (max-width: 576px) {
+    .who-we-help__grid .audience-card {
+        flex: 0 0 95%;
+    }
+}
