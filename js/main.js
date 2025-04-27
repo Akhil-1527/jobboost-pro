@@ -1,5 +1,5 @@
 /**
- * JobBoost Pro - Main JavaScript File
+ * Flex Apply - Main JavaScript File
  * 
  * This file contains all the interactive functionality of the Flex Apply website
  * Includes mobile menu toggle, smooth scrolling, form validation, testimonial slider
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevButton = document.querySelector('.testimonials__nav-btn--prev');
     const nextButton = document.querySelector('.testimonials__nav-btn--next');
     const contactForm = document.querySelector('#contactForm');
-    const formSuccess = document.querySelector('#form-success');
+    const toastNotification = document.querySelector('#toast-success');
     
     // Initialize current slide index
     let currentSlide = 0;
@@ -155,6 +155,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
     
+    // Show toast notification
+    function showToast() {
+        if (toastNotification) {
+            toastNotification.classList.add('show');
+            
+            // Hide toast after 5 seconds
+            setTimeout(() => {
+                toastNotification.classList.remove('show');
+            }, 5000);
+        }
+    }
+    
     // Form validation and submission
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -169,6 +181,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Basic validation
             let valid = true;
             
+            // Clear any existing error messages
+            const existingError = contactForm.querySelector('.form-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // Validate required fields
             if (!nameField.value.trim()) {
                 valid = false;
                 nameField.style.borderColor = 'var(--error)';
@@ -197,28 +216,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 workAuthField.style.borderColor = 'var(--border-medium)';
             }
             
-            // If form is not valid, prevent submission
+            // If form is not valid, show error message
             if (!valid) {
-                // Show error message
                 const formError = document.createElement('div');
                 formError.className = 'form-error';
                 formError.innerHTML = 'Please fill out all required fields correctly.';
                 
-                // Remove any existing error messages
-                const existingError = contactForm.querySelector('.form-error');
-                if (existingError) {
-                    existingError.remove();
-                }
-                
-                // Add error message to form
                 contactForm.insertBefore(formError, contactForm.firstChild);
-                
                 return;
             }
             
-            // Submit the form using Fetch API instead of default behavior
+            // Form is valid, proceed with submission
             const formData = new FormData(contactForm);
             
+            // Submit the form using Fetch API
             fetch(contactForm.action, {
                 method: 'POST',
                 body: formData,
@@ -227,41 +238,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .then(response => {
-                // Show success message
-                showFormSuccess();
+                // Show success toast notification
+                showToast();
                 
                 // Clear form fields
                 contactForm.reset();
             })
             .catch(error => {
                 console.error('Error submitting form:', error);
-                // Show a user-friendly error
+                // Show error message
                 const formError = document.createElement('div');
                 formError.className = 'form-error';
-                formError.innerHTML = 'There was an error submitting the form. Please try again.';
-                
-                // Remove any existing error messages
-                const existingError = contactForm.querySelector('.form-error');
-                if (existingError) {
-                    existingError.remove();
-                }
-                
-                // Add error message to form
+                formError.innerHTML = 'There was an error submitting your information. Please try again.';
                 contactForm.insertBefore(formError, contactForm.firstChild);
             });
         });
-    }
-    
-    // Show form success message
-    function showFormSuccess() {
-        if (formSuccess) {
-            formSuccess.style.display = 'block';
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                formSuccess.style.display = 'none';
-            }, 5000);
-        }
     }
     
     // Email validation helper

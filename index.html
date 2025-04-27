@@ -377,11 +377,11 @@
                 <div class="section-header section-header--left">
                     <!-- Edit Here -->
                     <h2>About Flex Apply</h2>
-                    <p>We're innovating the job search process with flexible, efficient application solutions.</p>
+                    <p>We're revolutionizing the job search process with flexible, efficient solutions that put you first.</p>
                 </div>
                 <!-- Edit Here -->
-                <p>Flex Apply was born from a simple insight: job seekers deserve a more efficient way to land interviews. Our team of job search specialists recognized the gap between traditional career services (often slow, expensive, and offering limited attention) and the DIY approach (overwhelming, time-consuming, and frustrating).</p>
-                <p>Today, we've developed a flexible, hopeful alternative. Our specialists apply to hundreds of positions daily for clients, optimizing each application to break through applicant tracking systems. We transform the job search experience from stress-inducing to empowering—helping qualified candidates land more interviews faster while they focus on preparing to shine when opportunity knocks.</p>
+                <p>Flex Apply was founded with a simple, powerful vision: to create a more efficient, less stressful path to landing great jobs. Traditional career consulting can be slow, expensive, and impersonal, while applying on your own often means spending countless hours with minimal results.</p>
+                <p>We offer a flexible middle ground that maximizes your opportunities while minimizing your stress. Our team of specialists applies to hundreds of positions daily, using advanced optimization techniques to break through applicant tracking systems and get your application noticed. This flexible approach gives you back precious time to focus on interview preparation, skill-building, and maintaining work-life balance during your search.</p>
                 <div class="about__cta" data-aos="fade-up" data-aos-delay="100">
                     <a href="#contact" class="btn btn--primary">Get Help Applying</a>
                 </div>
@@ -402,10 +402,15 @@
             </div>
             <div class="contact__content">
                 <div class="contact__form-container" data-aos="fade-up" data-aos-delay="100">
-                    <form class="contact__form" action="https://formspree.io/f/your-form-id" method="POST" id="contactForm">
-                        <div id="form-success" class="form-success" style="display: none;">
-                            <p>✅ Thank you! We'll get back to you soon!</p>
+                    <!-- Toast notification -->
+                    <div id="toast-success" class="toast-notification">
+                        <div class="toast-content">
+                            <span class="toast-icon">✅</span>
+                            <span class="toast-message">Thank you for reaching out! We'll get back to you shortly.</span>
                         </div>
+                    </div>
+                    
+                    <form class="contact__form" action="https://formspree.io/f/your-form-id" method="POST" id="contactForm">
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" required>
@@ -470,7 +475,7 @@
                     </div>
                     <div class="contact__calendar">
                         <h3>Rather talk now?</h3>
-                        <a href="https://calendly.com/your-link" class="btn btn--secondary" target="_blank">Book a Free Consultation</a>
+                        <a href="https://calendly.com/your-link" class="btn btn--secondary btn--calendar" target="_blank">Book a Free Consultation</a>
                     </div>
                 </div>
             </div>

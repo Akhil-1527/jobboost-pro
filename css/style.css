@@ -1,6 +1,6 @@
 /* 
-    JobBoost Pro - Main Stylesheet
-    A clean, modern, and professional stylesheet for JobBoost Pro website
+    Flex Apply - Main Stylesheet
+    A clean, modern, and professional stylesheet for Flex Apply website
     Structure follows component-based architecture for easy maintenance
 */
 
@@ -73,7 +73,6 @@
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
     --spacing-xxl: 5rem;
-    /* Spacing (continued) */
     
     /* Border Radius */
     --radius-sm: 0.25rem;
@@ -199,7 +198,6 @@ section {
     padding: var(--spacing-xxl) 0;
 }
 
-.who-we-help__grid,
 .pricing__grid {
     display: grid;
     gap: var(--spacing-lg);
@@ -498,15 +496,28 @@ section {
     text-align: center;
     position: relative;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
 }
 
 .pricing-card--featured {
     border: 2px solid var(--primary);
     transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.1);
+    z-index: 2;
 }
 
 .pricing-card--featured:hover {
     transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+}
+
+.pricing-card:not(.pricing-card--featured):hover {
+    z-index: 1;
 }
 
 .pricing-card__badge {
@@ -607,6 +618,46 @@ select {
     color: var(--error);
     font-size: 0.875rem;
     margin-bottom: var(--spacing-md);
+}
+
+/* Toast notification - fixed position in the center of the screen */
+.toast-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 400px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    background-color: var(--bg-white);
+    border-left: 4px solid var(--success);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.toast-icon {
+    margin-right: var(--spacing-sm);
+    font-size: 1.25rem;
+}
+
+.toast-message {
+    font-weight: 500;
+    color: var(--text-dark);
 }
 
 /* -----------------------------
@@ -750,7 +801,17 @@ select {
 }
 
 .who-we-help__grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.who-we-help__grid .audience-card {
+    height: 100%;
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
 }
 
 /* -----------------------------
@@ -910,6 +971,7 @@ select {
 
 .contact__form-container {
     flex: 3;
+    position: relative;
 }
 
 .contact__info {
@@ -951,7 +1013,7 @@ select {
 .contact__calendar {
     background-color: var(--primary-dark);
     color: var(--text-white);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     text-align: center;
@@ -960,6 +1022,10 @@ select {
 
 .contact__calendar h3 {
     color: var(--text-white);
+    margin-bottom: var(--spacing-lg);
+}
+
+.btn--calendar {
     margin-bottom: var(--spacing-md);
 }
 
@@ -1099,232 +1165,34 @@ select {
 /* -----------------------------
    18. Animations
 ----------------------------- */
-/* Animation styles will be handled by AOS library (added in JS) */
+/* Animations for various elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
 /* -----------------------------
    19. Media Queries
 ----------------------------- */
 @media (max-width: 1200px) {
-    :root {
-        --container-padding: 1.5rem;
+    .container {
+        padding: 0 var(--container-padding);
     }
-    
-    h1 {
-        font-size: 2.8rem;
-    }
-    
-    h2 {
-        font-size: 2.2rem;
-    }
-}
+}                       
 
-@media (max-width: 992px) {
-    section {
-        padding: var(--spacing-xl) 0;
-    }
-    
-    .hero {
-        padding-top: calc(var(--spacing-xl) + 80px);
-    }
-    
-    .hero .container,
-    .about .container,
-    .services__highlight {
-        flex-direction: column;
-    }
-    
-    .hero__image,
-    .about__image,
-    .services__highlight-image {
-        order: -1;
-        margin-bottom: var(--spacing-lg);
-    }
-    
-    .contact__content {
-        flex-direction: column;
-    }
-    
-    .testimonials__stats {
-        flex-wrap: wrap;
-    }
-    
-    .stat {
-        flex: 0 0 100%;
-        margin-bottom: var(--spacing-md);
-    }
-}
-
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.2rem;
-    }
-    
-    h2 {
-        font-size: 1.8rem;
-    }
-    
-    .navbar__links {
-        display: none;
-    }
-    
-    .navbar__menu-toggle {
-        display: flex;
-    }
-    
-    .hero__cta,
-    .final-cta__buttons {
-        flex-direction: column;
-        gap: var(--spacing-sm);
-    }
-    
-    .pricing__grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .pricing-card--featured {
-        transform: none;
-    }
-    
-    .pricing-card--featured:hover {
-        transform: translateY(-5px);
-    }
-    
-    .testimonials__slider {
-        grid-template-columns: 1fr;
-    }
-    
-    .process-step {
-        flex-direction: column;
-        gap: var(--spacing-sm);
-        align-items: flex-start;
-    }
-    
-    .pricing__guarantee {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .footer__content {
-        flex-direction: column;
-        gap: var(--spacing-xl);
-    }
-    
-    .footer__links {
-        flex-direction: column;
-        gap: var(--spacing-lg);
-    }
-    
-    .footer__bottom {
-        flex-direction: column;
-        gap: var(--spacing-md);
-        text-align: center;
-    }
-}
-
-@media (max-width: 576px) {
-    :root {
-        --container-padding: 1rem;
-    }
-    
-    section {
-        padding: var(--spacing-lg) 0;
-    }
-    
-    .who-we-help__grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .services__highlight {
-        padding: var(--spacing-lg);
-    }
-}
-
-/* Added styles for the Who We Help section to make cards appear in a single horizontal line */
-.who-we-help__grid {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: var(--spacing-md);
-    overflow-x: auto;
-    padding: var(--spacing-md) 0;
-    scroll-snap-type: x mandatory;
-    margin-bottom: var(--spacing-lg);
-}
-
-.who-we-help__grid .audience-card {
-    flex: 0 0 280px;
-    scroll-snap-align: start;
-    margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-lg);
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Form success notification styling */
-.form-success {
-    background-color: rgba(16, 185, 129, 0.1);
-    border-left: 3px solid var(--success);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-    border-radius: var(--radius-md);
-}
-
-.form-success p {
-    color: var(--success);
-    font-weight: 600;
-    margin-bottom: 0;
-}
-
-/* Improve spacing in contact calendar section */
-.contact__calendar {
-    background-color: var(--primary-dark);
-    color: var(--text-white);
-    padding: var(--spacing-xl) var(--spacing-lg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    text-align: center;
-    margin-top: auto;
-}
-
-.contact__calendar h3 {
-    color: var(--text-white);
-    margin-bottom: var(--spacing-lg);
-}
-
-/* Responsive adjustments for horizontal cards in Who We Help section */
-@media (max-width: 1200px) {
-    .who-we-help__grid {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: var(--spacing-sm);
-        gap: var(--spacing-sm);
-    }
-    
-    .who-we-help__grid .audience-card {
-        flex: 0 0 260px;
-    }
-}
-@media (max-width: 768px) {
-    .who-we-help__grid {
-        flex-wrap: nowrap;
-        padding-bottom: var(--spacing-sm);
-    }
-    
-    .who-we-help__grid .audience-card {
-        flex: 0 0 85%;
-    }
-    
-    .contact__calendar {
-        padding: var(--spacing-lg);
-    }
-    
-    .contact__calendar h3 {
-        margin-bottom: var(--spacing-md);
-    }
-}
-
-@media (max-width: 576px) {
-    .who-we-help__grid .audience-card {
-        flex: 0 0 95%;
-    }
-}
